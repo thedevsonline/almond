@@ -10,32 +10,32 @@ use App\Models\User;
 use App\Models\category;
 class OwnerController extends Controller
 {
-    
+
 
 
 
     public function login(){
         return view ('login');
-        
+
     }
     public function signup(){
         return view ('signup');
 
     }
-    
+
     public function index() {
         return view('owner.home');
     }
     public function productlist () {
         $products=Product::all();
-        
+
         return view ('owner.productList',compact('products'));
     }
     public function productdetail($id) {
         $product=Product::find($id);
-        
+
         return view ('owner.productDetails',compact('product'));
-   
+
     }
     // public function pro(){
     //     return view('owner.pro');
@@ -52,14 +52,14 @@ class OwnerController extends Controller
         return view('owner.profile',compact('profile'));
     }
     public function home (){
-    
+
 
 
         return view('owner.adminHome');
     }
 
 
-    
+
     public function addCategory(){
         return view ('owner.addCategory');
     }
@@ -78,5 +78,5 @@ class OwnerController extends Controller
     $addCategory->save();
     return redirect('/');
 }
-s
+
 }
