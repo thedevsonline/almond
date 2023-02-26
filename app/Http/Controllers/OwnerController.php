@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Product;
+use App\Models\new_product;
 // use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -27,12 +27,13 @@ class OwnerController extends Controller
         return view('owner.home');
     }
     public function productlist () {
-        $products=Product::all();
+        $products=new_product::all();
+        $categories=category::all();
 
-        return view ('owner.productList',compact('products'));
+        return view ('owner.productList',compact('products','categories'));
     }
     public function productdetail($id) {
-        $product=Product::find($id);
+        $product=new_product::find($id);
 
         return view ('owner.productDetails',compact('product'));
 

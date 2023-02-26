@@ -12,10 +12,10 @@
         <h3>Categories</h3>
       </div>
       <div class="sidebar-body">
-        <ul class="category-list">
-          <li>Category 1</li>
-          <li>Category 2</li>
-          <li>Category 3</li>
+         <ul class="category-list">
+          @foreach($categories as $category)
+          <li>{{$category->categories}}</li>
+         @endforeach
         </ul>
       </div>
       <div class="sidebar-header">

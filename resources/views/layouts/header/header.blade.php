@@ -37,19 +37,19 @@
                         <a href='{{ route('logout') }}'
                             class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log
+                        <a href="{{ route('login') }}" class="btn btn-outline-dark">Log
                             in</a>
 
                         @if (Route::has('signup'))
                             <a href="{{ route('signup') }}"
-                                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                               class="btn btn-outline-primary">Register</a>
                         @endif
 
                     </div>
                 @endif
 
                 <li class="nav-item">
-                    <a class="nav-link" style="background-color: inherit; cursor: default;" href="#">Cart</a>
+                    <a class="btn btn-outline-success"  href="#">Cart</a>
                 </li>
             </ul>
         </div>

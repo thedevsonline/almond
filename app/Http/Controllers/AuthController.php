@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Product;
+use App\Models\new_product;
 // use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -17,10 +17,8 @@ class AuthController extends Controller
     }
     public function signup(){
         return view ('signup');
-
     }
-    
-   
+
 
     public function registration(Request $request)
 {
@@ -36,6 +34,7 @@ class AuthController extends Controller
     if ($validator->fails()) {
         return response()->json($validator->errors(), 400);
     }
+
 
     // create a new user
     $user = new User([
