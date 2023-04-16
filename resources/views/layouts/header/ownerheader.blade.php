@@ -1,6 +1,6 @@
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="{{ route('admin.Home') }}"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
           </div>
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -149,9 +149,11 @@
                 </div>
               </li>
                  @if (Auth::check())
-                  
                     <li class="nav-item">
-                        <a class="nav-link" style="background-color: inherit; cursor: default;" href="{{ route('logout') }}">Logout</a>
+                        <a class="btn btn-outline-light " >{{Auth::user()->role}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light "  href="{{ route('logout') }}">Logout</a>
                     </li>
                
                 
@@ -160,7 +162,7 @@
                   <div class="navbar-profile">
                     <img class="img-xs rounded-circle" src="{{ Auth::user()->image }}" alt="">
                     <a class="text-decoration-none" href="{{route('profile',Auth::user()->id)}}">
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name text-white">{{ Auth::user()->name }}</p>
+                    <p class="btn btn-outline-light ">{{ Auth::user()->name }}</p>
                     </a>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>

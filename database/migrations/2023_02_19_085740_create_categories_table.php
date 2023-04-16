@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('categories')->unique();
             $table->string('userid');
-            $table->string('image');
+            $table->string('image')->default('category.jpg');
             $table->timestamps();
         });
     }

@@ -11,79 +11,86 @@ use App\Models\category;
 
 class AuthController extends Controller
 {
-      public function login(){
-        return view ('login');
-        
+    public function login()
+    {
+        return view("login");
     }
-    public function signup(){
-        return view ('signup');
+    public function signup()
+    {
+        return view("signup");
     }
-
 
     public function registration(Request $request)
-{
-    // validate the request data
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string',
-        'phoneNumber' => 'required',
-        
-        'email' =>      'required|string|email|unique:users',
-        'password' => 'required|string|min:6',
-    ]);
+    {
+        // validate the request data
+        $validator = Validator::make($request->all(), [
+            "name" => "required|string",
 
-    if ($validator->fails()) {
-        return response()->json($validator->errors(), 400);
+            "email" => "required|string|email|unique:users",
+            "password" => "required|string|min:6",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        // create a new user
+        $user = new User([
+            "name" => $request->name,
+            "phoneNumber" => $request->phoneNumber,
+
+            "role" => $request->role,
+            "email" => $request->email,
+            "password" => bcrypt($request->password),
+        ]);
+        $user->save();
+        return redirect("login");
+
+        // generate a token
+        $token = Auth::fromUser($user);
+
+        return response()->json(compact("user", "token"), 201);
     }
+    public function signin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "email" => "required|string|email",
+            "password" => "required|string",
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
-    // create a new user
-    $user = new User([
-        'name' => $request->name,
-        'phoneNumber'  => $request->phoneNumber,
-       
-        'role'=>$request->role,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-    ]);
-    $user->save();
-    return redirect('login');
+        $credentials = $request->only(["email", "password"]);
 
-    // generate a token
-    $token = Auth::fromUser($user);
+        if (!Auth::attempt($credentials)) {
+            return redirect("login");
+        }
 
-    return response()->json(compact('user','token'), 201);
-}
-public function signin(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-    ]);
+        if (Auth::check()) {
+            $user = Auth::user()->role;
 
-    if ($validator->fails()) {
-        return response()->json($validator->errors(), 400);
+            if ($user == "owner") {
+                return view("owner.index");
+            } elseif ($user == "seller") {
+                return view("seller.index");
+            } else {
+                return view("visitor.index");
+            }
+        } else {
+            return view("visitor.index");
+        }
     }
-
-
-
-        $credentials = $request->only(['email', 'password']);
-
-    if (! Auth::attempt($credentials)) {
-        
-         return redirect('login');
-
-    }
-
-    $user = Auth::user();
-
-    // return response()->json(compact('user'));
-    return redirect(route('user.index'));
-}
     public function logout()
-{
-    auth()->logout();
-    return redirect('/');
-}
+    {
+        auth()->logout();
+        return redirect("/");
+    }
+      public function applyforseller()
+    {
+        return view("applyforseller");
+    }
 
 
 }

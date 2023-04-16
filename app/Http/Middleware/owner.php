@@ -18,11 +18,11 @@ class owner
     {
          $user = auth()->user();
     
-    if ($user && $user->role == 'seller') {
+    if ($user && $user->role == 'owner') {
         return $next($request);
     }
-     if ($user && $user->role != 'seller') {
-        return redirect('index')->with('error', 'You do not have permission to access this page.');
+     if ($user && $user->role != 'owner') {
+        return redirect('index')->with('error', 'You do not have permission to access owner page.');
     }
         
     }

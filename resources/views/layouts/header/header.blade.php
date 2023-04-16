@@ -9,11 +9,11 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" style="background-color: inherit; cursor: default;"
-                        href="{{ route('owner.index') }}">Home</a>
+                        href="{{ route('index') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="background-color: inherit; cursor: default;"
-                        href="{{ route('owner.productlist') }}">Shop</a>
+                        href="{{ route('productlist') }}">Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="background-color: inherit; cursor: default;" href="#">About</a>
@@ -27,15 +27,21 @@
 
             <ul class="navbar-nav mr-4 ml-auto">
                 <li class="nav-item">
-                    <a class=" btn btn-outline-danger mr-sm-2" href="{{ route('OwnerHome') }}">Become a Seller</a>
+  @if (auth()->user())
+                    <a class=" btn btn-outline-dark  mr-sm-2" >{{Auth::user()->role}}</a>
+                    @endif
+                </li>
+                 <li class="nav-item">
+
+                    <a class=" btn btn-outline-danger mr-sm-2" href="{{ route('admin.Home') }}">Become a Seller</a>
                 </li>
                 @if (auth()->user())
-                    <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <div class=" d-flex fixed  sm:block">
 
-                        <a href='{{ route('user.index') }}'
-                            class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                        <a href='{{ route('index') }}'
+                           class="btn btn-outline-dark">Home</a>
                         <a href='{{ route('logout') }}'
-                            class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a>
+                            class="btn btn-outline-warning">Logout</a>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-outline-dark">Log
                             in</a>
@@ -49,7 +55,7 @@
                 @endif
 
                 <li class="nav-item">
-                    <a class="btn btn-outline-success"  href="#">Cart</a>
+                    <a class="btn btn-outline-success"  href="{{ route('cart') }}">Cart</a>
                 </li>
             </ul>
         </div>

@@ -9,13 +9,13 @@
 		@csrf
 		<input type="text" name="name" class= "input" placeholder="write your name"><br>
 		
-		<input type="email" name="email" class= "input"laceholder="write your email">
+		<input type="email" name="email" class= "input" placeholder="write your email">
+		<input type="text" name="phoneNumber" class= "input" placeholder="write your number">
 		
 		
-		<input type="text" name="free text" class= "input" placeholder="write anything">
+	
 		
-		
-		<input type="number" name="phoneNumber" class= "input" placeholder="write your phone number">
+	
 	
 		<input type="password" name="password" class= "input" placeholder="write your password">
 		<input type="submit" name="submit" class="button"  value="Login">

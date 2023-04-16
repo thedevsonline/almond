@@ -1,4 +1,4 @@
-@extends('layouts.layout.customerLayout')
+@extends('layouts.layout.adminLayout')
 
 @section('admincontent')
       <div class="container-scroller">
@@ -11,15 +11,27 @@
             <!-- partial -->
             <div class="main-panel">
                <div class="content-wrapper">
+              
+
                   <div class="row">
+                        @if(session('productadded'))
+                            <div class="alert alert-success">
+                                {{ session('productadded') }}
+                            </div>
+                        @endif
+                   
+
                      <div class="col-9">
                         <h1>Add New Product</h1>
-                        <form action="{{route('storeProduct')}}">
+                        <form action="{{ route('storeProduct') }}" method="POST" enctype="multipart/form-data" >
+
+                           @csrf
                            <div class="card">
-                              <input class=" form-control-lg bg-white  productName"  type="text" placeholder="Product Name">
+                              <input name="product_name" class=" form-control-lg bg-white  productName"  type="text" placeholder="Product Name">
                            </div>
                            <div class="card">
-                              <textarea class="form-control-lg bg-white productDes"  id="Write Product Description" placeholder="Write Product description"></textarea>
+                              <textarea class="form-control-lg bg-white productDes" maxlength="3000" name="long_description" id="longDescription" placeholder="Write Product description"></textarea>
+                              <p>Word count: <span id="wordCountlongDescription">0</span> Max :3000</p>
                            </div>
                            <div class="card  d-flex">
                               <div class="card-header bg-white">
@@ -51,8 +63,8 @@
                                     </div>
                                     <div class="general mt-4 d-flex justify-content-between">
                                        <p class="singleProduct ">Dimensions(ft)</p>
-                                        <input type="text" class ="weight" name="Length" placeholder="Length">
-                                       <input type="text" class ="weight" name="Widht" placeholder="Widht">
+                                        <input type="text" class ="weight" name="length" placeholder="Length">
+                                       <input type="text" class ="weight" name="width" placeholder="Widht">
                                        <input type="text" class ="weight" name="height" placeholder="Height">
                                       
                                     </div>
@@ -60,17 +72,29 @@
                                  <div id ="div3" class="data-informantion">
 
                                    <div class="general d-flex justify-content-between">
-                                     <p class="singleProduct ">Is Stock</p>
+                                     <p  class="singleProduct ">Is Stock</p>
 
-                                  <select class ="singleproduct">
-                                    <option>In Stock</option>
-                                    <option>Out Stock</option>
+                                  <select name="isstock" class ="singleproduct">
+                                    <option name="instock" value="instock">In Stock</option>
+                                    <option name="outstock" value="outstock">Out Stock</option>
                                   </select>
                                   
                                 </div>
+
+                                   <div class="general d-flex justify-content-between">
+                                     <p  class="singleProduct ">Is Stock</p>
+
+                                        <select name="category" class ="singleproduct">
+                                          <option>Uncategorized</option>
+                                          @foreach($categories as $category)
+                                          <option value="{{$category->categories}}" >{{$category->categories}}</option>
+                                          @endforeach
+                                        </select>
+                                        
+                                </div>
                                 <div class="general d-flex justify-content-between">
                                        <p class="singleProduct">Stock quantity</p>
-                                       <input type="number" class ="singleproduct" name="numberOfSell" placeholder="100,200,300....">
+                                       <input type="number" class ="singleproduct" name="totalstock" placeholder="100,200,300....">
                                     </div>
                                  </div>
                                  <div id ="div4" class="data-informantion">
@@ -83,7 +107,7 @@
                                 <div class="general d-flex justify-content-between">
                                        <p class="singleProduct">Product Gallery</p>
                                        <div >
-                                       <input type="file" class ="singleproduct" name="image1" >
+                                       <input type="file" class ="singleproduct"   name="product_image" multiple>
                                        <input type="file" class ="singleproduct" name="image2" >
                                        <input type="file" class ="singleproduct" name="image3" >
                                        <input type="file" class ="singleproduct" name="image4" >
@@ -95,10 +119,13 @@
                            </div>
                             <div class="card">
 
-                              <textarea class="form-control-lg bg-white productDes"  id="Write Product Description" placeholder="Write Short Product description"></textarea>
+                              <textarea class="form-control-lg bg-white productDes" maxlength="350" name="short_description" id="myTextarea" placeholder="Write Short Product description"></textarea>
+                              <textarea ></textarea>
+                              <p>Word count: <span id="wordCount">0</span>Max :350</p>
+
                            </div>
 
-                           <input type="submit" class="submit"  name="storedata">
+                           <input type="submit" class="submit"  >
                         </form>
                      </div>
                   </div>
@@ -133,6 +160,39 @@
          window.onload = function() {
          dis.style.display = 'block';
          };
-          
-      </script>
+
+
+    const textarea = document.getElementById('myTextarea');
+const wordCount = document.getElementById('wordCount');
+
+textarea.addEventListener('input', function() {
+  const text = this.value.trim();
+  const characterCount = text.length;
+  
+  if (characterCount > 350) {
+    textarea.value = text.slice(0, 350);
+    wordCount.textContent = 350;
+  } else {
+    wordCount.textContent = characterCount;
+  }
+});      
+
+
+
+
+
+    const textareaD = document.getElementById('longDescription');
+const wordCountD = document.getElementById('wordCountlongDescription');
+
+textareaD.addEventListener('input', function() {
+  const text = this.value.trim();
+  const characterCount = text.length;
+  
+  if (characterCount > 3000) {
+    textareaD.value = text.slice(0, 3000);
+    wordCountD.textContent = 3000;
+  } else {
+    wordCountD.textContent = characterCount;
+  }
+});            </script>
    @endsection

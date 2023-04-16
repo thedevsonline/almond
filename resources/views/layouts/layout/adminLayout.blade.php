@@ -13,6 +13,7 @@
       @vite('resources/assets/css/style.css')
       @vite('resources/assets/images/favicon.png')
       @vite('resources/custom/uploadproduct.css')
+
      
          
       </style>
@@ -32,6 +33,8 @@
       @vite('resources/assets/js/file-upload.js')
       @vite('resources/assets/js/typeahead.js')
       @vite('resources/assets/js/select2.jsresources')
+
+   
 
    </body>
    </html>
