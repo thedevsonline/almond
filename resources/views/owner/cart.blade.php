@@ -64,7 +64,7 @@
                              </td>
                         </tr>
                         <?php
-  
+         
     $totaprice=  $cartatm->price +  $totaprice;
     
 
